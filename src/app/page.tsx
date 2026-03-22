@@ -1,66 +1,91 @@
-import Image from "next/image";
-import styles from "./page.module.css";
+import Link from "next/link";
 
 export default function Home() {
   return (
-    <div className={styles.page}>
-      <main className={styles.main}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className={styles.intro}>
-          <h1>To get started, edit the page.tsx file.</h1>
-          <p>
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
+    <>
+      {/* Hero */}
+      <section className="hero">
+        <p className="label" style={{ marginBottom: "var(--space-4)" }}>INTERACTIVE LEARNING PLATFORM</p>
+        <h1>
+          <span className="gradient-text">Master Data Structures,</span>
+          <br />Ace Your Exam
+        </h1>
+        <p className="hero-subtitle">
+          Interactive practice for sorting algorithms, linked lists, and complexity analysis.
+          Visualize algorithms, solve practice questions, and prepare for exams — all in one place.
+        </p>
+        <div className="hero-actions">
+          <Link href="/practice" className="btn btn-primary">📝 Start Practice Exam</Link>
+          <Link href="/visualizer" className="btn btn-outline">🎬 Open Visualizer</Link>
         </div>
-        <div className={styles.ctas}>
-          <a
-            className={styles.primary}
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className={styles.logo}
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className={styles.secondary}
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+      </section>
+
+      {/* Topic Cards */}
+      <section className="section">
+        <div className="section-header">
+          <p className="label">EXPLORE BY TOPIC</p>
+          <h2>What Would You Like to Study?</h2>
+          <p>Deep-dive into each topic with visualizations, code comparisons, and practice questions.</p>
         </div>
-      </main>
-    </div>
+        <div className="grid-3">
+          <Link href="/topics/sorting" className="topic-card accent-indigo">
+            <div className="topic-icon indigo">📊</div>
+            <h3>Sorting Algorithms</h3>
+            <p>Understand how Insertion Sort and Merge Sort work through step-by-step animations and code analysis.</p>
+            <div className="topic-tags">
+              <span className="badge badge-primary">Insertion Sort</span>
+              <span className="badge badge-primary">Merge Sort</span>
+              <span className="badge">Divide & Conquer</span>
+            </div>
+            <span className="explore-link">Explore →</span>
+          </Link>
+
+          <Link href="/topics/linked-lists" className="topic-card accent-emerald">
+            <div className="topic-icon emerald">🔗</div>
+            <h3>Linked Lists</h3>
+            <p>Master pointer-based data structures from Singly Linked Lists to Circular Doubly Linked Lists.</p>
+            <div className="topic-tags">
+              <span className="badge badge-success">SLL</span>
+              <span className="badge badge-success">DLL</span>
+              <span className="badge badge-success">CDLL</span>
+            </div>
+            <span className="explore-link">Explore →</span>
+          </Link>
+
+          <Link href="/topics/complexity" className="topic-card accent-amber">
+            <div className="topic-icon amber">📈</div>
+            <h3>Complexity Analysis</h3>
+            <p>Decode Big-O, Big-Ω, and Big-Θ notation. Learn to analyze and prove algorithm correctness.</p>
+            <div className="topic-tags">
+              <span className="badge badge-warning">Big-O</span>
+              <span className="badge badge-warning">Big-Ω</span>
+              <span className="badge badge-warning">Big-Θ</span>
+            </div>
+            <span className="explore-link">Explore →</span>
+          </Link>
+        </div>
+      </section>
+
+      {/* Features */}
+      <section className="section" style={{ background: "var(--surface-low)" }}>
+        <div className="grid-3">
+          <div className="feature-card">
+            <div className="feature-icon">🎬</div>
+            <h4>Interactive Visualizations</h4>
+            <p>Watch algorithms execute step-by-step with animated canvas visualizations and adjustable speed controls.</p>
+          </div>
+          <div className="feature-card">
+            <div className="feature-icon">📝</div>
+            <h4>Practice Questions</h4>
+            <p>50+ exam-style questions with True/False, MCQ, Fill-in-the-Blank, and Code Tracing. Instant feedback with explanations.</p>
+          </div>
+          <div className="feature-card">
+            <div className="feature-icon">💻</div>
+            <h4>Code Comparison</h4>
+            <p>Side-by-side C++ and Python implementations. Understand the algorithm regardless of your language background.</p>
+          </div>
+        </div>
+      </section>
+    </>
   );
 }
