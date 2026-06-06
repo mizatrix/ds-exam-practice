@@ -1,0 +1,679 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>CS212 Data Structures — Final Exam Revision Sheet</title>
+<style>
+  :root{
+    --ink:#15181f; --muted:#54607a; --line:#c9d2e3; --soft:#eef2f9;
+    --accent:#3a4cb8; --accent2:#0b7a6b; --warn:#b4530a; --warnbg:#fff4e8; --warnline:#f0c79a;
+    --okbg:#eaf6f0; --okline:#bfe3d2; --code:#0b2d6b; --codebg:#eef1fb;
+    --th:#2a3566;
+  }
+  *{box-sizing:border-box}
+  @page{ size:A4; margin:9mm 9mm 10mm 9mm; }
+  html,body{margin:0;padding:0}
+  body{
+    font-family:"Segoe UI",-apple-system,Roboto,Helvetica,Arial,sans-serif;
+    color:var(--ink); font-size:9.1px; line-height:1.22;
+    -webkit-print-color-adjust:exact; print-color-adjust:exact;
+  }
+  code,.mono{font-family:"JetBrains Mono","Consolas","SF Mono",monospace;}
+  code{background:var(--codebg); color:var(--code); padding:0 3px; border-radius:3px; font-size:0.94em; white-space:nowrap;}
+
+  /* ---- Sheet (one A4 page) ---- */
+  .sheet{ position:relative; padding-bottom:6mm; }
+  .sheet + .sheet{ break-before:page; }
+  .sheet-head{
+    display:flex; justify-content:space-between; align-items:baseline;
+    border-bottom:2px solid var(--accent); padding-bottom:2px; margin-bottom:5px;
+  }
+  .sheet-head .tag{ font-weight:700; color:var(--accent); font-size:9.5px; letter-spacing:.3px; text-transform:uppercase;}
+  .sheet-head .pg{ font-size:8.5px; color:var(--muted); font-weight:600;}
+  .sheet-foot{ position:absolute; bottom:0; left:0; right:0; text-align:center;
+    font-size:7.6px; color:var(--muted); border-top:1px solid var(--line); padding-top:2px;}
+
+  h1{font-size:24px; line-height:1.06; margin:0 0 4px; color:var(--accent); letter-spacing:-.4px;}
+  h2{font-size:13.5px; margin:0 0 4px; color:var(--th); border-bottom:1px solid var(--line); padding-bottom:2px;}
+  h3{font-size:10.6px; margin:6px 0 2px; color:var(--accent2);}
+  h4{font-size:9.6px; margin:0 0 2px; color:var(--th);}
+  p{margin:2px 0;}
+  ul,ol{margin:2px 0 2px 0; padding-left:15px;}
+  li{margin:0.8px 0;}
+  b{color:#0c1330;}
+
+  .topic{break-inside:auto;}
+  ul.facts{list-style:none; padding-left:0; margin:3px 0;}
+  ul.facts li{position:relative; padding-left:13px; margin:1.5px 0;}
+  ul.facts li::before{content:"▸"; position:absolute; left:0; color:var(--accent); font-weight:700;}
+
+  /* ---- Tables ---- */
+  table{border-collapse:collapse; width:100%; margin:4px 0; font-size:8.6px;}
+  table.ct th,table.ct td,table th,table td{border:1px solid var(--line); padding:2px 4px; text-align:left; vertical-align:top;}
+  table th, thead th{background:var(--soft); color:var(--th); font-weight:700;}
+  table.ct tbody tr:nth-child(even){background:#f7f9fd;}
+  td code{white-space:nowrap;}
+
+  /* ---- Boxes ---- */
+  .worked{background:var(--okbg); border:1px solid var(--okline); border-left:3px solid var(--accent2);
+    border-radius:4px; padding:4px 7px; margin:4px 0; break-inside:avoid;}
+  .worked h4{color:var(--accent2);}
+  .trap{background:var(--warnbg); border:1px solid var(--warnline); border-left:3px solid var(--warn);
+    border-radius:4px; padding:4px 7px; margin:4px 0; break-inside:avoid;}
+  .trap b{color:var(--warn);}
+  .practice{background:#f4f6fb; border:1px solid var(--line); border-radius:4px; padding:4px 7px; margin:4px 0;}
+
+  .two-col{column-count:2; column-gap:14px;}
+  .two-col > *{break-inside:avoid;}
+  .nobreak{break-inside:avoid;}
+
+  /* ---- Cover specifics ---- */
+  .cover-sub{font-size:11.5px; color:var(--muted); margin:0 0 2px; font-weight:600;}
+  .badgeline{display:flex; gap:6px; flex-wrap:wrap; margin:8px 0;}
+  .badge{background:var(--accent); color:#fff; border-radius:20px; padding:2px 10px; font-size:9px; font-weight:700;}
+  .badge.alt{background:var(--accent2);}
+  .badge.gray{background:#6b7488;}
+  .cards{display:grid; grid-template-columns:1fr 1fr; gap:7px; margin:7px 0;}
+  .card{border:1px solid var(--line); border-radius:6px; padding:6px 9px; background:#fbfcfe;}
+  .card h4{color:var(--accent); margin-bottom:2px;}
+  .card .small{font-size:9px; color:var(--muted);}
+  .keyrow{display:flex; gap:6px; align-items:flex-start;}
+  .legend{font-size:9px; color:var(--muted);}
+
+  /* answer key */
+  .akey{column-count:2; column-gap:16px; font-size:9.3px;}
+  .akey .grp{break-inside:avoid; margin-bottom:6px;}
+  .akey b.h{color:var(--accent); display:block; border-bottom:1px solid var(--line); margin-bottom:2px;}
+  .qa{margin:3px 0;}
+  .qa .q{font-weight:600;}
+  .qa .a{color:var(--accent2);}
+</style>
+</head>
+<body>
+
+<section class="sheet">
+  <div class="sheet-head"><span class="tag">CS212 · Revision</span><span class="pg">Sheet 1 / 10</span></div>
+  
+  <h1>Data Structures (CS212)<br>Student Revision Sheet</h1>
+  <p class="cover-sub">AASTMT · Data Structures &amp; Algorithms · concise notes, worked examples &amp; practice</p>
+  <div class="badgeline">
+    <span class="badge">Complexity</span><span class="badge">Linked Lists</span>
+    <span class="badge">Stacks</span><span class="badge">Queues</span>
+    <span class="badge">Sorting</span><span class="badge">Trees / BST</span>
+  </div>
+
+  <h2>🎯 Master complexity cheat-table</h2>
+  <table class="ct">
+    <thead><tr><th>Structure / Algorithm</th><th>Access / Search</th><th>Insert</th><th>Delete</th><th>Space</th><th>Notes</th></tr></thead>
+    <tbody>
+      <tr><td><b>Array</b></td><td><code>O(1)</code> idx / <code>O(n)</code> search</td><td><code>O(n)</code></td><td><code>O(n)</code></td><td><code>O(n)</code></td><td>Contiguous → direct offset = O(1) index</td></tr>
+      <tr><td><b>Singly Linked List</b></td><td><code>O(n)</code></td><td>head <code>O(1)</code> · tail <code>O(n)</code></td><td>head <code>O(1)</code> · mid <code>O(n)</code></td><td><code>O(n)</code></td><td>No random access; 1 pointer/node</td></tr>
+      <tr><td><b>Doubly Linked List</b></td><td><code>O(n)</code></td><td>head/tail <code>O(1)</code></td><td>given ptr <code>O(1)</code></td><td><code>O(n)</code></td><td>+1 pointer/node; bidirectional</td></tr>
+      <tr><td><b>Stack</b> (push/pop/top)</td><td>top <code>O(1)</code></td><td><code>O(1)</code></td><td><code>O(1)</code></td><td><code>O(n)</code></td><td>LIFO; TOP does <b>not</b> scan</td></tr>
+      <tr><td><b>Circular Queue</b> (addq/deleteq)</td><td>—</td><td><code>O(1)</code></td><td><code>O(1)</code></td><td><code>O(n)</code></td><td>FIFO; no shifting; 1 slot sacrificed</td></tr>
+      <tr><td><b>BST — balanced</b></td><td><code>O(log n)</code></td><td><code>O(log n)</code></td><td><code>O(log n)</code></td><td><code>O(n)</code></td><td>Skewed degrades to <code>O(n)</code></td></tr>
+      <tr><td><b>Insertion Sort</b></td><td>best <code>Ω(n)</code></td><td colspan="2">worst/avg <code>O(n²)</code></td><td><code>O(1)</code></td><td>Stable · in-place · no single Θ</td></tr>
+      <tr><td><b>Merge Sort</b></td><td colspan="3"><code>Θ(n log n)</code> — best = worst = avg</td><td><code>O(n)</code></td><td>Stable · <b>not</b> in-place (temp arrays)</td></tr>
+      <tr><td><b>Binary Search</b> (sorted array)</td><td><code>O(log n)</code></td><td>—</td><td>—</td><td><code>O(1)</code></td><td>Halves the range each step</td></tr>
+    </tbody>
+  </table>
+
+  <h2>🧭 How to use this sheet</h2>
+  <ul class="facts">
+    <li>Sheets 2–7 — one topic each: key facts, a complexity table, a <b>worked example</b>, and the traps that catch people.</li>
+    <li>Sheets 8–9 — <b>mixed practice questions</b> with answers; cover the green answer and test yourself.</li>
+    <li>Sheet 10 — method checklists (how to trace a stack/queue, build a BST, run a sort) + final exam-day tips.</li>
+  </ul>
+
+  <div class="trap"><b>⚠ The five ideas most often gotten wrong:</b>
+    <ul style="margin:2px 0">
+      <li>Stack <code>TOP</code> and array index are <code>O(1)</code> (no scan); linked-list access is <code>O(n)</code>.</li>
+      <li>Merge Sort's <code>O(n)</code> space is the <b>merge temp arrays</b>, not the recursion stack; it is <b>not</b> in-place.</li>
+      <li>Circular queue: empty <code>front==rear</code>, full <code>front==(rear+1) mod n</code> — one slot is sacrificed.</li>
+      <li>BST: depth(root)=0, height(leaf)=0; an inorder traversal of a BST is always ascending.</li>
+      <li>Insertion Sort has no single <code>Θ</code> (best <code>Ω(n)</code> ≠ worst <code>O(n²)</code>); Merge Sort is <code>Θ(n log n)</code> always.</li>
+    </ul>
+  </div>
+
+  <div class="sheet-foot">CS212 Data Structures — Student Revision Sheet · Sheet 1 of 10</div>
+</section>
+
+<section class="sheet">
+  <div class="sheet-head"><span class="tag">CS212 · Complexity</span><span class="pg">Sheet 2 / 10</span></div>
+  <section class="topic">
+<h2>📈 Complexity &amp; Asymptotic Notation</h2>
+
+<p>Asymptotic analysis describes <b>how an algorithm scales</b> as the input size <code>n</code> grows — a machine-independent way to compare algorithms. Forget seconds; measure the <i>growth rate</i> of the work. As <code>n</code> grows large, the dominant term swamps everything else, so constants and lower-order terms become irrelevant.</p>
+
+<h3>The Three Bounds</h3>
+<ul class="facts">
+<li><b>Big-O</b> <code>O(g(n))</code> — the <i>upper bound</i> (worst case / ceiling). "At most this bad." Performance will never exceed this.</li>
+<li><b>Big-Omega</b> <code>Ω(g(n))</code> — the <i>lower bound</i> (best case / floor). "At least this much work" even on the friendliest input.</li>
+<li><b>Big-Theta</b> <code>Θ(g(n))</code> — the <i>tight bound</i> (sandwich). Exists <b>only when</b> the upper and lower bounds match, i.e. best case = worst case asymptotically.</li>
+</ul>
+
+<h3>Formal Definitions</h3>
+<ul class="facts">
+<li><code>f(n)=O(g(n))</code> if there exist constants <code>c&gt;0</code> and <code>n0&gt;0</code> such that <code>0 ≤ f(n) ≤ c·g(n)</code> for all <code>n ≥ n0</code>.</li>
+<li><code>f(n)=Ω(g(n))</code> if <code>0 ≤ c·g(n) ≤ f(n)</code> for all <code>n ≥ n0</code>.</li>
+<li><code>f(n)=Θ(g(n))</code> <i>if and only if</i> <code>f(n)=O(g(n))</code> AND <code>f(n)=Ω(g(n))</code>.</li>
+</ul>
+<p>The key phrase is <b>"for all n ≥ n0"</b>: the bound only has to hold beyond some threshold, not for tiny inputs. That is why a smaller term can lose even though it "wins" for small <code>n</code>.</p>
+
+<h3>Growth Ordering (slowest-growing = fastest)</h3>
+<p><code>O(1)</code> &lt; <code>O(log n)</code> &lt; <code>O(n)</code> &lt; <code>O(n log n)</code> &lt; <code>O(n²)</code> &lt; <code>O(2ⁿ)</code></p>
+
+<table class="ct">
+<thead><tr><th>Notation</th><th>Name</th><th>Typical source</th></tr></thead>
+<tbody>
+<tr><td><code>O(1)</code></td><td>Constant</td><td>Array index, hash lookup</td></tr>
+<tr><td><code>O(log n)</code></td><td>Logarithmic</td><td>Binary search (halving)</td></tr>
+<tr><td><code>O(n)</code></td><td>Linear</td><td>One simple loop / scan</td></tr>
+<tr><td><code>O(n log n)</code></td><td>Linearithmic</td><td>Merge sort, heap sort</td></tr>
+<tr><td><code>O(n²)</code></td><td>Quadratic</td><td>Two nested loops over <code>n</code></td></tr>
+<tr><td><code>O(2ⁿ)</code></td><td>Exponential</td><td>Enumerating all subsets</td></tr>
+</tbody>
+</table>
+
+<h3>Simplification Rules</h3>
+<ul class="facts">
+<li><b>Drop constant factors:</b> <code>5n</code> → <code>O(n)</code>; <code>3n²</code> → <code>O(n²)</code>.</li>
+<li><b>Drop lower-order terms:</b> keep only the fastest-growing term: <code>2n² + 9n + 11</code> → <code>O(n²)</code>.</li>
+<li><b>Sequential code adds</b> (then keep the bigger): <code>O(n) + O(n²)</code> → <code>O(n²)</code>.</li>
+<li><b>Nested loops multiply:</b> a loop of <code>O(n)</code> inside a loop of <code>O(n)</code> → <code>O(n²)</code>; an <code>O(log n)</code> inner step → <code>O(n log n)</code>.</li>
+</ul>
+
+<h3>Loop Invariants (proving correctness)</h3>
+<p>A loop invariant is a property true at the <b>start of every iteration</b>. Prove three things — the same structure as mathematical induction:</p>
+<ul class="facts">
+<li><b>Initialization</b> — the invariant holds before the first iteration (the base case).</li>
+<li><b>Maintenance</b> — if it holds before iteration <code>k</code>, it still holds before iteration <code>k+1</code> (the inductive step).</li>
+<li><b>Termination</b> — when the loop ends, the invariant gives you the result you wanted to prove (the conclusion).</li>
+</ul>
+
+<h3>Single Θ vs. Best ≠ Worst</h3>
+<ul class="facts">
+<li>If best, average, and worst case all have the <b>same growth</b>, the algorithm has a single <code>Θ</code>. Example: an algorithm that does the same number of halve-and-merge steps regardless of input order is <code>Θ(n log n)</code> always.</li>
+<li>If best and worst differ, there is <b>no single Θ</b> for the whole algorithm — you report best with <code>Ω</code> and worst with <code>O</code> separately. An input-sensitive algorithm (fast on nearly-sorted data, slow on reversed data) is the classic case.</li>
+</ul>
+
+<div class="worked">
+<h4>Worked example: analyzing T(n) = 4n² + 30n + 12</h4>
+<p>Step 1 — identify the fastest-growing term: <code>4n²</code> beats <code>30n</code> and the constant <code>12</code> once <code>n</code> is large.</p>
+<p>Step 2 — drop the constant factor and lower terms → growth class is <code>O(n²)</code>, in fact <code>Θ(n²)</code>.</p>
+<p>Step 3 — verify the formal Big-O. Pick <code>g(n)=n²</code>. For <code>n ≥ 30</code> we have <code>30n ≤ n²</code> and <code>12 ≤ n²</code>, so <code>4n² + 30n + 12 ≤ 4n² + n² + n² = 6n²</code>. Thus <code>c = 6</code>, <code>n0 = 30</code> satisfy <code>f(n) ≤ c·g(n)</code> for all <code>n ≥ n0</code>. Confirmed: <code>f(n) = O(n²)</code>.</p>
+<p>Note: at <code>n = 1</code>, <code>f(1)=46</code> while <code>6·1²=6</code> — the bound fails for small <code>n</code>, which is exactly why the definition only requires <code>n ≥ n0</code>.</p>
+</div>
+
+<div class="trap"><b>⚠ Exam trap:</b> Big-O is an <i>upper</i> bound, not "the worst case." A correct (if loose) statement is <code>n = O(n²)</code>. Saying an algorithm "is <code>O(n²)</code>" only claims it is no worse than quadratic; it does not claim it always takes <code>n²</code> work. Use <code>Θ</code> only when you can prove the upper and lower bounds match.</div>
+</section>
+  <div class="sheet-foot">CS212 Data Structures — Student Revision Sheet · Sheet 2 of 10</div>
+</section>
+
+<section class="sheet">
+  <div class="sheet-head"><span class="tag">CS212 · Linked Lists</span><span class="pg">Sheet 3 / 10</span></div>
+  <section class="topic">
+<h2>🔗 Linked Lists (SLL · DLL · CDLL)</h2>
+
+<p>A <b>linked list</b> is a linear data structure where each element is a <b>node</b> stored at a non-contiguous memory location. Unlike an array, the list grows and shrinks at runtime, and elements are reached by following pointers from the <b>head</b> rather than by index.</p>
+
+<h3>Singly Linked List (SLL)</h3>
+<ul class="facts">
+<li>Node = <code>data</code> + one <code>next</code> pointer. The last node's <code>next</code> is <code>NULL</code>.</li>
+<li>A <b>head</b> pointer addresses the first node; traversal is <b>forward only</b> (no <code>prev</code>, no U-turns).</li>
+<li><b>Insert at head</b> is <code>O(1)</code>: point new node's <code>next</code> to old head, then move head. <i>Order matters</i> — update head last.</li>
+<li><b>Insert at tail without a tail pointer</b> is <code>O(n)</code>: you must walk the whole list to find the last node. A maintained tail pointer makes it <code>O(1)</code>.</li>
+<li><b>Access / search by value</b> is <code>O(n)</code> — no random access, must follow the chain from head.</li>
+<li><b>Delete</b> needs the <i>predecessor</i> node, so finding it is <code>O(n)</code>.</li>
+<li>Space = data + <b>1 pointer</b> per node.</li>
+</ul>
+
+<h3>Doubly Linked List (DLL)</h3>
+<ul class="facts">
+<li>Node adds a <code>prev</code> pointer: each node knows both its successor and predecessor.</li>
+<li>Traversal works in <b>both directions</b> (forward via <code>next</code>, backward via <code>prev</code>).</li>
+<li><b>Delete given a node pointer is <code>O(1)</code></b>: rewire <code>node.prev.next = node.next</code> and <code>node.next.prev = node.prev</code> — no predecessor search needed.</li>
+<li>Head's <code>prev</code> = <code>NULL</code>; tail's <code>next</code> = <code>NULL</code>.</li>
+<li>Cost: <b>+1 pointer per node</b> (more memory, more edge cases — both links must stay consistent).</li>
+</ul>
+
+<h3>Circular Doubly Linked List (CDLL)</h3>
+<ul class="facts">
+<li>The list forms a closed loop: <code>head.prev</code> points to the last node and <code>last.next</code> points back to head. There is <b>no <code>NULL</code></b>.</li>
+<li>A single-node CDLL points to <i>itself</i> in both directions (<code>node.next == node</code>, <code>node.prev == node</code>).</li>
+<li>Traversal uses a <b>do-while loop</b>: process head first, then stop when <code>p == head</code>. A plain <code>while(p != head)</code> would skip the head because <code>p == head</code> is true at the start.</li>
+<li>Great for <b>cyclic iteration</b>: round-robin CPU scheduling, Alt+Tab window cycling.</li>
+</ul>
+
+<h3>Array vs Linked List & complexity</h3>
+<table class="ct">
+<thead><tr><th>Operation</th><th>Array</th><th>SLL</th><th>DLL</th><th>CDLL</th></tr></thead>
+<tbody>
+<tr><td>Access by index</td><td><code>O(1)</code></td><td><code>O(n)</code></td><td><code>O(n)</code></td><td><code>O(n)</code></td></tr>
+<tr><td>Search by value</td><td><code>O(n)</code></td><td><code>O(n)</code></td><td><code>O(n)</code></td><td><code>O(n)</code></td></tr>
+<tr><td>Insert at head</td><td><code>O(n)</code></td><td><code>O(1)</code></td><td><code>O(1)</code></td><td><code>O(1)</code></td></tr>
+<tr><td>Insert at tail (no tail ptr)</td><td><code>O(1)</code></td><td><code>O(n)</code></td><td><code>O(n)</code></td><td><code>O(1)</code></td></tr>
+<tr><td>Delete (node pointer known)</td><td><code>O(n)</code></td><td><code>O(n)</code></td><td><code>O(1)</code></td><td><code>O(1)</code></td></tr>
+<tr><td>Space per element</td><td>data</td><td>+1 ptr</td><td>+2 ptrs</td><td>+2 ptrs</td></tr>
+</tbody>
+</table>
+<ul class="facts">
+<li><b>Array:</b> fast <code>O(1)</code> indexing and good cache locality, but fixed size and costly shifting on insert/delete.</li>
+<li><b>Linked list:</b> dynamic size and cheap insert/delete at a known spot, but no random access and extra pointer storage.</li>
+<li><b>Applications:</b> SLL → stacks & queues; <b>DLL → browser history and undo/redo</b> (back follows <code>prev</code>, forward follows <code>next</code>); CDLL → round-robin scheduling / Alt+Tab.</li>
+</ul>
+
+<div class="worked">
+<h4>Worked example: insert at head of an SLL holding 7 → 3 → 9</h4>
+<p>Start: <code>head → [7] → [3] → [9] → NULL</code>. We insert a new node with value <b>5</b> at the head.</p>
+<ol>
+<li>Allocate <code>p = new Node(5)</code>.</li>
+<li><b>Point new node to old head first:</b> <code>p.next = head</code> (so <code>p.next</code> → the node holding 7).</li>
+<li><b>Then move head:</b> <code>head = p</code>.</li>
+</ol>
+<p>Result: <code>head → [5] → [7] → [3] → [9] → NULL</code>. Only one <code>next</code> pointer was set and no traversal happened, so this is <code>O(1)</code>. If we had done <code>head = p</code> <i>before</i> <code>p.next = head</code>, we would lose the rest of the list.</p>
+</div>
+
+<div class="trap"><b>⚠ Exam trap:</b> "Linked lists give <code>O(1)</code> access to the k-th element." False — access is <code>O(n)</code> because you must walk from the head; only arrays have <code>O(1)</code> indexing. Also remember <code>O(1)</code> delete in a DLL requires you to <i>already hold the node's pointer</i>; finding the node first is still <code>O(n)</code>.</div>
+</section>
+  <div class="sheet-foot">CS212 Data Structures — Student Revision Sheet · Sheet 3 of 10</div>
+</section>
+
+<section class="sheet">
+  <div class="sheet-head"><span class="tag">CS212 · Stacks</span><span class="pg">Sheet 4 / 10</span></div>
+  <section class="topic">
+<h2>📚 Stacks: Operations, Multi-Stack &amp; Infix→Postfix</h2>
+
+<h3>1. The Stack ADT — LIFO</h3>
+<ul class="facts">
+<li>A stack is a list where insertion and deletion happen at <b>one end only</b>, called the <b>top</b>.</li>
+<li>Discipline is <b>LIFO</b> (Last In, First Out): the most recently pushed item is the first popped.</li>
+<li>Core operations: <code>push(x)</code> add to top, <code>pop()</code> remove &amp; return top, <code>top()/peek()</code> read top without removing, <code>empty()</code>, <code>size()</code>.</li>
+<li>Array-based: bottom at <code>data[0]</code>, top at <code>data[top]</code>; an index variable <code>top</code> tracks the last filled slot.</li>
+<li>Every core operation is <code>O(1)</code> — no loop, no scan. <code>size()</code> returns <code>top+1</code> directly.</li>
+</ul>
+
+<h3>2. Overflow, Underflow &amp; why TOP is O(1)</h3>
+<ul class="facts">
+<li><b>OVERFLOW</b>: pushing when the array is full. With capacity <code>n</code> and 0-based <code>top</code>, full means <code>top == n-1</code>; some texts test <code>top == n</code> when <code>top</code> counts items. Push first checks fullness, then <code>top←top+1; data[top]←x</code>.</li>
+<li><b>UNDERFLOW</b>: popping/peeking an empty stack. Empty means <code>top == -1</code> (item-count convention: <code>top == 0</code>). Pop checks emptiness, returns <code>data[top]</code>, then <code>top←top-1</code>.</li>
+<li><code>top()</code> reads <code>data[top]</code> in one step — it never scans the array, so it is <code>O(1)</code>, not <code>O(n)</code>.</li>
+<li>Overflow is a limitation of the <i>array</i> implementation, not of the Stack ADT; a linked-list stack pushes at the head and grows freely.</li>
+</ul>
+
+<h3>3. Multi-Stack: packing several stacks in one array</h3>
+<ul class="facts">
+<li><b>Two stacks, opposite ends:</b> stack 1 grows upward from index <code>0</code> (top index <code>top1</code>); stack 2 grows downward from index <code>n-1</code> (top index <code>top2</code>). Memory is shared, so neither has a fixed half.</li>
+<li>Collision (overall OVERFLOW) occurs only when the tops meet: <code>top1 + 1 == top2</code>. Until then either stack may keep growing.</li>
+<li>This is more space-efficient than two half-size arrays: one stack can use almost all <code>n</code> slots if the other is small.</li>
+<li><b>Three or more stacks</b> in one array cannot use opposite ends. When a stack overflows into its neighbour's region, you must <b>shift neighbouring stacks</b> (and their boundaries) to make room — an expensive <code>O(n)</code> reorganisation, unlike the <code>O(1)</code> two-stack case.</li>
+</ul>
+
+<h3>4. Applications of stacks</h3>
+<ul class="facts">
+<li><b>Function/method calls:</b> the run-time call stack pushes a frame per call; returning pops it (supports recursion).</li>
+<li><b>Undo</b> in editors: each action pushed; Undo pops the last action (LIFO matches "undo most recent").</li>
+<li><b>Bracket / delimiter matching:</b> push each opener; on a closer, pop and check it matches. Balanced ⇔ every closer matches the popped opener AND the stack is empty at the end.</li>
+<li><b>Expression handling:</b> infix→postfix conversion and postfix evaluation; browser page-visited (back) history.</li>
+</ul>
+
+<h3>5. Infix → Postfix using a stack (ICP vs ISP)</h3>
+<ul class="facts">
+<li>Scan left→right. <b>Operand</b> → append straight to output. <b>Operator</b> → compare its incoming precedence <b>ICP</b> with the in-stack precedence <b>ISP</b> of the operator on top.</li>
+<li>While the stack top is an operator with <code>ISP(top) ≥ ICP(incoming)</code>, pop it to output; then push the incoming operator. This makes <code>* /</code> beat <code>+ -</code>, and equal-precedence left-associative operators pop the earlier one first.</li>
+<li><code>(</code> → push it. <code>)</code> → pop to output until <code>(</code> is popped; discard both parentheses.</li>
+<li><b>Exponent <code>^</code> is right-associative:</b> set <code>ICP(^) &gt; ISP(^)</code>, so a new <code>^</code> does NOT pop the <code>^</code> already on the stack (e.g. <code>a^b^c → a b c ^ ^</code>).</li>
+<li>At end of input, pop all remaining operators to output.</li>
+</ul>
+
+<table class="ct">
+<thead><tr><th>Operator</th><th>ISP (on stack)</th><th>ICP (incoming)</th><th>Associativity</th></tr></thead>
+<tbody>
+<tr><td><code>(</code></td><td>lowest (never pops others)</td><td>highest (always pushes)</td><td>—</td></tr>
+<tr><td><code>+</code> <code>-</code></td><td>low</td><td>low</td><td>left</td></tr>
+<tr><td><code>*</code> <code>/</code></td><td>medium</td><td>medium</td><td>left</td></tr>
+<tr><td><code>^</code></td><td>high</td><td>highest (above its own ISP)</td><td>right</td></tr>
+</tbody>
+</table>
+
+<div class="worked">
+<h4>Worked example: convert <code>p + q * r - s</code> to postfix</h4>
+<ol>
+<li><b>p</b> → operand → output: <code>p</code>; stack: empty.</li>
+<li><b>+</b> → stack empty → push. Stack: <code>+</code>; output: <code>p</code>.</li>
+<li><b>q</b> → operand → output: <code>p q</code>.</li>
+<li><b>*</b> → top is <code>+</code>, and <code>ISP(+) &lt; ICP(*)</code> → do NOT pop → push. Stack: <code>+ *</code>; output: <code>p q</code>.</li>
+<li><b>r</b> → operand → output: <code>p q r</code>.</li>
+<li><b>-</b> → top <code>*</code>: <code>ISP(*) ≥ ICP(-)</code> → pop <code>*</code> → output: <code>p q r *</code>. Top now <code>+</code>: <code>ISP(+) ≥ ICP(-)</code> (equal, left-assoc) → pop <code>+</code> → output: <code>p q r * +</code>. Stack empty → push <code>-</code>. Stack: <code>-</code>.</li>
+<li><b>s</b> → operand → output: <code>p q r * + s</code>.</li>
+<li>End of input → pop remaining: <code>-</code> → output: <code>p q r * + s -</code>.</li>
+</ol>
+<p><b>Result:</b> <code>p q r * + s -</code></p>
+</div>
+
+<div class="trap"><b>⚠ Exam trap:</b> <code>top()</code> is <code>O(1)</code> — it reads one indexed slot and does NOT scan the stack. Also: a closer that finds the <i>wrong</i> opener (or an <i>empty</i> stack) means unbalanced, AND leftover openers at the end also mean unbalanced. Finally, <code>^</code> is right-associative, so <code>ICP(^) &gt; ISP(^)</code>: a second <code>^</code> is pushed on top of an existing <code>^</code> rather than popping it.</div>
+</section>
+  <div class="sheet-foot">CS212 Data Structures — Student Revision Sheet · Sheet 4 of 10</div>
+</section>
+
+<section class="sheet">
+  <div class="sheet-head"><span class="tag">CS212 · Queues</span><span class="pg">Sheet 5 / 10</span></div>
+  <section class="topic">
+<h2>🚶 Queues (Linear &amp; Circular)</h2>
+
+<h3>The Queue ADT &amp; FIFO</h3>
+<ul class="facts">
+<li>A queue stores objects under the <b>First-In First-Out (FIFO)</b> rule: the first element added is the first removed.</li>
+<li><b>ADDQ / enqueue</b> inserts at the <b>rear</b>; <b>DELETEQ / dequeue</b> removes at the <b>front</b>. The two operations act on <i>opposite</i> ends.</li>
+<li>Two markers track the ends: <code>front</code> (first element) and <code>rear</code> (last element). Compare with a stack, which has a single <code>top</code> pointer.</li>
+<li>Auxiliary ops: <code>size()</code>, <code>empty()</code>, <code>front()</code> (peek first), <code>rear()</code> (peek last).</li>
+<li><b>Overflow</b> = ADDQ on a full queue. <b>Underflow</b> = DELETEQ/front on an empty queue (throws Queue Empty).</li>
+</ul>
+
+<h3>Applications</h3>
+<ul class="facts">
+<li><b>Print spooler:</b> documents sent to a shared printer are queued and printed in arrival order — pure FIFO.</li>
+<li>Waiting lines / ticket counters, access to shared resources, multiprogramming and round-robin CPU scheduling.</li>
+<li>Used wherever <b>sequential processing</b> in arrival order is required.</li>
+</ul>
+
+<h3>Linear array queue: the drift problem</h3>
+<ul class="facts">
+<li>Keeping <code>queue[0]</code> permanently as front forces every element to shift on each delete — wasteful.</li>
+<li>Instead we just advance <code>front</code> on delete and <code>rear</code> on add. But both indices keep <b>drifting</b> rightward.</li>
+<li><b>False-full:</b> eventually <code>rear</code> reaches the last cell while early cells sit empty. The queue reports "full" although free space exists at the start — a wasted-slot illusion, not a real overflow.</li>
+</ul>
+
+<h3>Circular queue Q(0 : n-1)</h3>
+<p>Wrapping the indices with modulo reuses the freed front cells, eliminating false-full.</p>
+<ul class="facts">
+<li><b>ADDQ:</b> <code>rear = (rear + 1) % n</code>, then store the value at <code>queue[rear]</code>.</li>
+<li><b>DELETEQ:</b> <code>front = (front + 1) % n</code>, then read <code>queue[front]</code>.</li>
+<li><b>Empty test:</b> <code>front == rear</code>.</li>
+<li><b>Full test:</b> <code>front == (rear + 1) % n</code>.</li>
+<li><b>One slot sacrificed:</b> because both empty and full would otherwise give <code>front == rear</code>, we deliberately leave one cell unused so the two states stay distinguishable. A queue of capacity <code>n</code> holds at most <code>n - 1</code> elements.</li>
+<li><b>Count:</b> number of elements = <code>(rear - front + n) % n</code>.</li>
+<li>Both ADDQ and DELETEQ run in <code>O(1)</code> time — no shifting, ever.</li>
+</ul>
+
+<table class="ct">
+<thead><tr><th>Aspect</th><th>Linear array queue</th><th>Circular queue</th></tr></thead>
+<tbody>
+<tr><td>Index update</td><td><code>rear++</code> / <code>front++</code></td><td><code>(rear+1)%n</code> / <code>(front+1)%n</code></td></tr>
+<tr><td>Reuses freed cells</td><td>No</td><td>Yes (wrap-around)</td></tr>
+<tr><td>False-full possible</td><td>Yes</td><td>No</td></tr>
+<tr><td>Usable capacity</td><td>n</td><td>n − 1 (one sacrificed)</td></tr>
+<tr><td>ADDQ / DELETEQ cost</td><td><code>O(1)</code></td><td><code>O(1)</code></td></tr>
+</tbody>
+</table>
+
+<div class="worked">
+<h4>Worked example: circular queue with n = 5</h4>
+<p>Cells indexed 0..4. Start <code>front = 0</code>, <code>rear = 0</code> (empty, since front == rear).</p>
+<ol>
+<li><b>ADDQ 7:</b> rear = (0+1)%5 = 1, store 7 → cell[1]=7.</li>
+<li><b>ADDQ 3:</b> rear = (1+1)%5 = 2, store 3 → cell[2]=3.</li>
+<li><b>ADDQ 9:</b> rear = (2+1)%5 = 3, store 9 → cell[3]=9.</li>
+<li><b>ADDQ 4:</b> rear = (3+1)%5 = 4, store 4 → cell[4]=4. Now front=0, rear=4.</li>
+<li><b>Full check:</b> (rear+1)%5 = (4+1)%5 = 0 = front → <b>FULL</b>. Holds 4 = n−1 elements, one cell (index 0) sacrificed.</li>
+<li><b>DELETEQ:</b> front = (0+1)%5 = 1, read cell[1] = <b>7</b> (FIFO: 7 entered first). Now front=1, rear=4.</li>
+<li><b>Count:</b> (rear − front + n) % n = (4 − 1 + 5) % 5 = 8 % 5 = <b>3</b> elements remain (3, 9, 4).</li>
+<li><b>ADDQ 6:</b> rear = (4+1)%5 = 0, store 6 → cell[0]=6. The rear has <b>wrapped around</b> into the freed cell, which a linear queue could not do.</li>
+</ol>
+</div>
+
+<div class="trap"><b>⚠ Exam trap:</b> In ADDQ/DELETEQ the index is advanced <i>before</i> the store/read, not after. Also remember a capacity-<code>n</code> circular queue holds only <code>n − 1</code> items: the full test <code>front == (rear+1)%n</code> deliberately sacrifices one slot so that "full" and "empty" do not both look like <code>front == rear</code>.</div>
+</section>
+  <div class="sheet-foot">CS212 Data Structures — Student Revision Sheet · Sheet 5 of 10</div>
+</section>
+
+<section class="sheet">
+  <div class="sheet-head"><span class="tag">CS212 · Sorting</span><span class="pg">Sheet 6 / 10</span></div>
+  <section class="topic">
+<h2>🔢 Sorting: Insertion Sort & Merge Sort</h2>
+
+<p>Two foundational sorting algorithms. <b>Insertion Sort</b> is simple and adaptive but quadratic in the worst case; <b>Merge Sort</b> is a divide-and-conquer algorithm with a guaranteed <code>Θ(n log n)</code> running time at the cost of extra memory.</p>
+
+<h3>Insertion Sort — the card player</h3>
+<ul class="facts">
+<li><b>Idea:</b> grow a <b>sorted prefix</b> on the left. Each pass takes the next element as the <b>key</b>, then <b>shifts every larger element one slot to the right</b> until the key's correct slot opens up, and drops it in.</li>
+<li><b>Loop shape:</b> outer loop <code>j = 1 .. n-1</code> (key = arr[j]); inner <code>while</code> walks left while <code>arr[i] &gt; key</code>, copying arr[i] into arr[i+1].</li>
+<li><b>Best case</b> (already sorted): inner loop never runs — one comparison per element → <code>Ω(n)</code>.</li>
+<li><b>Worst case</b> (reverse sorted): every key travels to index 0 → <code>1+2+...+(n-1) = n(n-1)/2</code> comparisons → <code>Θ(n²)</code>.</li>
+<li><b>Stable</b> (uses <code>&gt;</code>, never moves equal keys past each other) and <b>in-place</b> → <code>O(1)</code> extra space.</li>
+<li><b>Adaptive &amp; online:</b> fast on nearly-sorted data; can sort items as they arrive.</li>
+</ul>
+
+<h3>Merge Sort — divide &amp; conquer</h3>
+<ul class="facts">
+<li><b>Divide:</b> split the array in half recursively until each subarray is a single element (already sorted by definition).</li>
+<li><b>Conquer / Merge:</b> "zip" two sorted halves into one by repeatedly comparing front elements and copying the smaller first.</li>
+<li><b>Recurrence:</b> <code>T(n) = 2T(n/2) + n</code>. The tree is <code>log n</code> levels deep; each level does <code>Θ(n)</code> merge work → <code>Θ(n log n)</code> in <b>best, worst, and average</b> cases (input-agnostic).</li>
+<li><b>Not in-place:</b> merging needs an auxiliary buffer → <code>O(n)</code> extra space.</li>
+<li><b>Stable</b> when the merge uses <code>&lt;=</code> to keep the left element on ties.</li>
+</ul>
+
+<h3>Which to use?</h3>
+<ul class="facts">
+<li>Small or nearly-sorted arrays → <b>Insertion Sort</b> (tiny constants, adaptive, no extra memory).</li>
+<li>Large arrays where worst-case speed matters → <b>Merge Sort</b> (guaranteed <code>Θ(n log n)</code>, stable).</li>
+<li>Hybrids (e.g. Timsort) combine both: Insertion Sort on small runs, Merge Sort to combine them.</li>
+</ul>
+
+<table class="ct">
+<thead>
+<tr><th>Property</th><th>Insertion Sort</th><th>Merge Sort</th></tr>
+</thead>
+<tbody>
+<tr><td>Best case</td><td><code>Ω(n)</code></td><td><code>Θ(n log n)</code></td></tr>
+<tr><td>Worst / Average</td><td><code>Θ(n²)</code></td><td><code>Θ(n log n)</code></td></tr>
+<tr><td>Space</td><td><code>O(1)</code> (in-place)</td><td><code>O(n)</code> (aux buffer)</td></tr>
+<tr><td>Stable</td><td>Yes</td><td>Yes</td></tr>
+<tr><td>Adaptive</td><td>Yes</td><td>No</td></tr>
+<tr><td>Strategy</td><td>Incremental</td><td>Divide &amp; conquer</td></tr>
+</tbody>
+</table>
+
+<div class="worked">
+<h4>Worked example: Insertion Sort on [7, 3, 9, 1]</h4>
+<p>Sorted prefix shown in <b>bold</b>; key in <i>italics</i>.</p>
+<ol>
+<li>Start: [<b>7</b>, <i>3</i>, 9, 1]. key=3. 7&gt;3 → shift 7 right → insert 3 → [<b>3, 7</b>, 9, 1].</li>
+<li>key=9. 7&gt;9? No → 9 stays → [<b>3, 7, 9</b>, 1].</li>
+<li>key=1. 9&gt;1 shift, 7&gt;1 shift, 3&gt;1 shift, hit left end → insert 1 at index 0 → [<b>1, 3, 7, 9</b>].</li>
+</ol>
+<p>Result: <code>[1, 3, 7, 9]</code>. The last pass did 3 comparisons + 3 shifts because 1 had to travel the full distance — exactly the costly pattern a reverse-sorted array repeats on every key.</p>
+<p><b>Merge Sort sketch on the same array:</b> split [7,3,9,1] → [7,3] and [9,1] → singletons [7][3][9][1]. Merge: [7],[3]→[3,7]; [9],[1]→[1,9]. Final merge of [3,7] and [1,9]: compare 3 vs 1 → 1; 3 vs 9 → 3; 7 vs 9 → 7; then 9 → <code>[1, 3, 7, 9]</code>.</p>
+</div>
+
+<div class="trap"><b>⚠ Exam trap:</b> Merge Sort is <code>Θ(n log n)</code> in <b>all</b> cases — a sorted input does <b>not</b> make it faster (no "best case = n"). That adaptive best-case <code>Ω(n)</code> belongs to <b>Insertion Sort</b>. Also: Merge Sort is NOT in-place (it needs <code>O(n)</code> aux); Insertion Sort is the in-place / <code>O(1)</code>-space one.</p>
+</section>
+  <div class="sheet-foot">CS212 Data Structures — Student Revision Sheet · Sheet 6 of 10</div>
+</section>
+
+<section class="sheet">
+  <div class="sheet-head"><span class="tag">CS212 · Trees & BST</span><span class="pg">Sheet 7 / 10</span></div>
+  <section class="topic">
+<h2>🌳 Trees & Binary Search Trees</h2>
+
+<h3>Tree Terminology</h3>
+<ul class="facts">
+<li><b>Root</b>: the single topmost node, has no parent. Every tree has exactly one.</li>
+<li><b>Parent / Child</b>: a node directly above / below another, connected by an <b>edge</b>.</li>
+<li><b>Leaf</b>: a node with no children (sits at the end of a branch).</li>
+<li><b>Internal node</b>: any node that has at least one child.</li>
+<li><b>Subtree</b>: a node plus all of its descendants — every node roots its own subtree.</li>
+<li>A tree with <code>N</code> nodes has exactly <code>N-1</code> edges.</li>
+</ul>
+
+<h3>Depth vs Height (the classic confusion)</h3>
+<ul class="facts">
+<li><b>Depth of a node</b> = number of edges from the <i>root down</i> to that node. So <b>depth(root) = 0</b>.</li>
+<li><b>Height of a node</b> = number of edges on the longest path from that node <i>down</i> to a leaf. So <b>height(leaf) = 0</b>.</li>
+<li><b>Height of the whole tree = height of the root</b>.</li>
+<li>Depth grows downward; height is measured upward from the bottom.</li>
+</ul>
+
+<h3>Binary Search Tree (BST) Ordering Rule</h3>
+<ul class="facts">
+<li>For <b>every</b> node: <code>left subtree &lt; node &lt; right subtree</code> — not just at the root.</li>
+<li><b>Insert / Search</b>: start at root, go <b>left</b> if target &lt; node, <b>right</b> if target &gt; node, repeat.</li>
+<li>Reaching <code>NULL</code> during a search means the value is <b>absent</b>.</li>
+<li>The first value inserted becomes the root; later values find their slot via the rule.</li>
+</ul>
+
+<h3>Performance</h3>
+<table class="ct">
+<thead><tr><th>Shape</th><th>Search / Insert</th><th>Why</th></tr></thead>
+<tbody>
+<tr><td>Balanced BST</td><td><code>O(log n)</code></td><td>Each comparison eliminates ~half the remaining nodes</td></tr>
+<tr><td>Skewed BST (sorted input)</td><td><code>O(n)</code></td><td>Degenerates into a linked list — one long chain</td></tr>
+</tbody>
+</table>
+<ul class="facts">
+<li>Inserting <i>already-sorted</i> values (e.g. 1,2,3,4,5) builds a fully skewed tree — the worst case.</li>
+</ul>
+
+<h3>Traversals (Depth-First)</h3>
+<ul class="facts">
+<li><b>Preorder (Root, Left, Right)</b>: root recorded first → used to <b>copy / serialize</b> a tree.</li>
+<li><b>Inorder (Left, Root, Right)</b>: on a BST this outputs values in <b>ascending sorted order</b>.</li>
+<li><b>Postorder (Left, Right, Root)</b>: children visited before parent → <b>safe deletion</b> / freeing memory.</li>
+<li>All three are recursive with a base case <code>if node == NULL: return</code>; only the position of the "visit" step moves.</li>
+</ul>
+
+<div class="worked">
+<h4>Worked example: build a BST and traverse it</h4>
+<p>Insert this order into an empty BST: <b>50, 25, 70, 10, 35, 60</b>.</p>
+<ol>
+<li>50 → root.</li>
+<li>25 &lt; 50 → left of 50.</li>
+<li>70 &gt; 50 → right of 50.</li>
+<li>10: 10&lt;50 left → 10&lt;25 left → left child of 25.</li>
+<li>35: 35&lt;50 left → 35&gt;25 right → right child of 25.</li>
+<li>60: 60&gt;50 right → 60&lt;70 left → left child of 70.</li>
+</ol>
+<p>Resulting tree: root 50; left subtree (25 with children 10, 35); right subtree (70 with left child 60).</p>
+<p><b>Inorder (L,Root,R)</b> = 10, 25, 35, 50, 60, 70 → ascending sorted, confirming a valid BST.</p>
+<p><b>Preorder (Root,L,R)</b> = 50, 25, 10, 35, 70, 60.</p>
+<p><b>Postorder (L,R,Root)</b> = 10, 35, 25, 60, 70, 50 → root 50 comes last, safe for deletion.</p>
+<p><b>Search 35</b>: 35&lt;50 go left → 35&gt;25 go right → found. Only 3 nodes visited. <b>Search 42</b>: 42&lt;50 left → 42&gt;25 right → 42&gt;35 right → child is <code>NULL</code> → absent.</p>
+<p><b>Depth/Height</b>: depth(50)=0, depth(25)=1, depth(10)=2. Height(leaf 10)=0, height(25)=1, height of tree = height(50) = 2.</p>
+</div>
+
+<div class="trap"><b>⚠ Exam trap:</b> Depth and height are mirror images — <b>depth(root)=0</b> (count down from root) while <b>height(leaf)=0</b> (count up to a leaf). Also remember <b>Inorder</b> (not Preorder) is the one that prints a BST in sorted order, and a BST built from sorted input is skewed, giving <code>O(n)</code>, not <code>O(log n)</code>.</div>
+</section>
+  <div class="sheet-foot">CS212 Data Structures — Student Revision Sheet · Sheet 7 of 10</div>
+</section>
+
+<section class="sheet">
+  <div class="sheet-head"><span class="tag">CS212 · Practice I</span><span class="pg">Sheet 8 / 10</span></div>
+  <section class="topic"><h2>✍ Mixed Practice — Test Yourself</h2>
+<p class="legend">Cover the green ✓ answer and attempt each question first. Same skills as the exam, fresh questions.</p>
+<div class="akey">
+<div class="grp"><b class="h">Complexity</b>
+<div class="qa"><span class="q">1. [MCQ] Simplify T(n) = 7n³ + 200n² + 5000n + 99 to its tightest growth class.</span><br><span style="color:#444"><b>a)</b> O(n²) &nbsp; <b>b)</b> O(n³) &nbsp; <b>c)</b> O(n log n) &nbsp; <b>d)</b> O(n⁴)</span><br><span class="a">✓ B) O(n³)</span></div>
+<div class="qa"><span class="q">2. [TF] Big-Theta Θ(g(n)) exists for an algorithm only when its best-case and worst-case growth rates match (i.e. it is both O(g(n)) and Ω(g(n))).</span><br><span class="a">✓ TRUE</span></div>
+<div class="qa"><span class="q">3. [FILL] In a loop-invariant correctness proof, the three properties that must be shown are Initialization, ____________, and Termination.</span><br><span class="a">✓ Maintenance</span></div>
+<div class="qa"><span class="q">4. [MCQ] Which list places the growth classes in correct order from SLOWEST-growing to FASTEST-growing?</span><br><span style="color:#444"><b>a)</b> O(n²) &lt; O(n log n) &lt; O(n) &lt; O(log n) &lt; O(1) &nbsp; <b>b)</b> O(1) &lt; O(n) &lt; O(log n) &lt; O(n log n) &lt; O(2ⁿ) &nbsp; <b>c)</b> O(1) &lt; O(log n) &lt; O(n) &lt; O(n log n) &lt; O(n²) &lt; O(2ⁿ) &nbsp; <b>d)</b> O(log n) &lt; O(1) &lt; O(n log n) &lt; O(n) &lt; O(2ⁿ)</span><br><span class="a">✓ C) O(1) &lt; O(log n) &lt; O(n) &lt; O(n log n) &lt; O(n²) &lt; O(2ⁿ)</span></div>
+<div class="qa"><span class="q">5. [TRACE] Given f(n) = 2n² + 6n, find the SMALLEST integer constant c that makes f(n) ≤ c·n² hold for all n ≥ 1 (use g(n)=n², n0=1). Show the resulting c.</span><br><span class="a">✓ c = 8</span></div>
+</div>
+<div class="grp"><b class="h">Linked Lists</b>
+<div class="qa"><span class="q">6. [MCQ] What does a singly linked list node store?</span><br><span style="color:#444"><b>a)</b> Only the data value &nbsp; <b>b)</b> Data plus a pointer to the next node &nbsp; <b>c)</b> Data plus pointers to both the next and previous nodes &nbsp; <b>d)</b> Data plus the index of the element</span><br><span class="a">✓ B) Data plus a pointer to the next node</span></div>
+<div class="qa"><span class="q">7. [TF] In a singly linked list, accessing the element at a given index takes O(1) time, just like an array.</span><br><span class="a">✓ FALSE</span></div>
+<div class="qa"><span class="q">8. [FILL] In a doubly linked list, each node stores its data, a next pointer, and a ________ pointer that references the previous node.</span><br><span class="a">✓ prev</span></div>
+<div class="qa"><span class="q">9. [MCQ] Inserting a node at the tail of a singly linked list that has only a head pointer (no tail pointer) has what time complexity?</span><br><span style="color:#444"><b>a)</b> O(1) &nbsp; <b>b)</b> O(log n) &nbsp; <b>c)</b> O(n) &nbsp; <b>d)</b> O(n^2)</span><br><span class="a">✓ C) O(n)</span></div>
+<div class="qa"><span class="q">10. [TRACE] An SLL is head → [4] → [6] → [2] → NULL. You insert a node with value 9 at the head, then delete the node containing value 6. Write the final list from head to NULL (values in order).</span><br><span class="a">✓ 9 -&gt; 4 -&gt; 2 -&gt; NULL</span></div>
+</div>
+<div class="grp"><b class="h">Stacks</b>
+<div class="qa"><span class="q">11. [MCQ] An empty stack is popped using a 0-based top index where empty is represented by top == -1. What error condition does this attempted pop trigger?</span><br><span style="color:#444"><b>a)</b> Overflow &nbsp; <b>b)</b> Underflow &nbsp; <b>c)</b> Collision &nbsp; <b>d)</b> Out-of-order access</span><br><span class="a">✓ B) Underflow</span></div>
+<div class="qa"><span class="q">12. [TF] In a stack, both insertion (push) and deletion (pop) occur only at the top end, giving Last-In-First-Out (LIFO) behaviour.</span><br><span class="a">✓ TRUE</span></div>
+<div class="qa"><span class="q">13. [FILL] The error that occurs when push() is called on a stack whose array is already full is called ______.</span><br><span class="a">✓ overflow</span></div>
+<div class="qa"><span class="q">14. [MCQ] A stack of capacity n stores its item count in a variable top (top counts the elements present). Which test correctly detects that the stack is FULL before a push?</span><br><span style="color:#444"><b>a)</b> top == -1 &nbsp; <b>b)</b> top == 0 &nbsp; <b>c)</b> top == n &nbsp; <b>d)</b> top == n + 1</span><br><span class="a">✓ C) top == n</span></div>
+<div class="qa"><span class="q">15. [TRACE] Trace the infix-to-postfix conversion of ( m + n ) * k using an operator stack and give the final postfix expression.</span><br><span class="a">✓ m n + k *</span></div>
+</div>
+</div></section>
+  <div class="sheet-foot">CS212 Data Structures — Student Revision Sheet · Sheet 8 of 10</div>
+</section>
+
+<section class="sheet">
+  <div class="sheet-head"><span class="tag">CS212 · Practice II</span><span class="pg">Sheet 9 / 10</span></div>
+  <section class="topic"><h2>✍ Mixed Practice — Test Yourself</h2>
+<p class="legend">Cover the green ✓ answer and attempt each question first. Same skills as the exam, fresh questions.</p>
+<div class="akey">
+<div class="grp"><b class="h">Queues</b>
+<div class="qa"><span class="q">16. [MCQ] Which principle does a queue follow?</span><br><span style="color:#444"><b>a)</b> LIFO (Last-In First-Out) &nbsp; <b>b)</b> FIFO (First-In First-Out) &nbsp; <b>c)</b> Random access &nbsp; <b>d)</b> Priority by value</span><br><span class="a">✓ B) FIFO (First-In First-Out)</span></div>
+<div class="qa"><span class="q">17. [TF] In a queue, insertions (ADDQ) happen at the rear and deletions (DELETEQ) happen at the front.</span><br><span class="a">✓ TRUE</span></div>
+<div class="qa"><span class="q">18. [FILL] The reason one slot is intentionally left unused in a circular queue is so the ____ condition can be distinguished from the empty condition.</span><br><span class="a">✓ full</span></div>
+<div class="qa"><span class="q">19. [MCQ] In a circular queue of size n, what is the correct ADDQ (enqueue) update for the rear index before storing the new value?</span><br><span style="color:#444"><b>a)</b> rear = rear + 1 &nbsp; <b>b)</b> rear = (rear - 1) % n &nbsp; <b>c)</b> rear = (rear + 1) % n &nbsp; <b>d)</b> rear = (front + 1) % n</span><br><span class="a">✓ C) rear = (rear + 1) % n</span></div>
+<div class="qa"><span class="q">20. [TRACE] A circular queue has n = 4 (cells 0..3), starting front = 0, rear = 0 (empty). Perform: ADDQ 5, ADDQ 8, ADDQ 1, then one DELETEQ. Using rear=(rear+1)%n then store, and front=(front+1)%n then read, what value does the DELETEQ return and what are front and rear afterward?</span><br><span class="a">✓ Returns 5; front = 1, rear = 3</span></div>
+</div>
+<div class="grp"><b class="h">Sorting</b>
+<div class="qa"><span class="q">21. [MCQ] What input order produces the WORST-case running time for Insertion Sort?</span><br><span style="color:#444"><b>a)</b> Already sorted in ascending order &nbsp; <b>b)</b> Reverse (descending) sorted &nbsp; <b>c)</b> All elements equal &nbsp; <b>d)</b> Sorted except for the last element</span><br><span class="a">✓ B) Reverse (descending) sorted</span></div>
+<div class="qa"><span class="q">22. [TF] Insertion Sort runs in O(n) time on an array that is already sorted in ascending order.</span><br><span class="a">✓ TRUE</span></div>
+<div class="qa"><span class="q">23. [FILL] The variable that holds the element currently being inserted into the sorted prefix in Insertion Sort is conventionally called the ____.</span><br><span class="a">✓ key</span></div>
+<div class="qa"><span class="q">24. [MCQ] Which recurrence correctly describes the running time of Merge Sort?</span><br><span style="color:#444"><b>a)</b> T(n) = T(n-1) + n &nbsp; <b>b)</b> T(n) = 2T(n/2) + n &nbsp; <b>c)</b> T(n) = T(n/2) + 1 &nbsp; <b>d)</b> T(n) = 2T(n-1) + 1</span><br><span class="a">✓ B) T(n) = 2T(n/2) + n</span></div>
+<div class="qa"><span class="q">25. [TRACE] Trace Insertion Sort on the array [6, 2, 8, 4]. Give the array contents after each element has been inserted (i.e., after each outer-loop pass).</span><br><span class="a">✓ [2,6,8,4] -&gt; [2,6,8,4] -&gt; [2,4,6,8]</span></div>
+</div>
+<div class="grp"><b class="h">Trees & BST</b>
+<div class="qa"><span class="q">26. [MCQ] Which traversal order visits the root LAST, making it the safe choice for deleting/freeing a tree?</span><br><span style="color:#444"><b>a)</b> Preorder &nbsp; <b>b)</b> Inorder &nbsp; <b>c)</b> Postorder &nbsp; <b>d)</b> Level-order</span><br><span class="a">✓ C) Postorder</span></div>
+<div class="qa"><span class="q">27. [TF] In any tree, the depth of the root node is 0.</span><br><span class="a">✓ TRUE</span></div>
+<div class="qa"><span class="q">28. [FILL] In a BST, for every node the values in its ____ subtree are less than the node and the values in its right subtree are greater.</span><br><span class="a">✓ left</span></div>
+<div class="qa"><span class="q">29. [MCQ] A BST is built by inserting 40, 20, 60, 10, 30. Where does the value 25 go?</span><br><span style="color:#444"><b>a)</b> Left child of 40 &nbsp; <b>b)</b> Right child of 20 &nbsp; <b>c)</b> Left child of 30 &nbsp; <b>d)</b> Right child of 60</span><br><span class="a">✓ C) Left child of 30</span></div>
+<div class="qa"><span class="q">30. [TRACE] A BST is built by inserting 8, 3, 11, 1, 6, 14 into an empty tree. Give the INORDER traversal output.</span><br><span class="a">✓ 1 3 6 8 11 14</span></div>
+</div>
+</div></section>
+  <div class="sheet-foot">CS212 Data Structures — Student Revision Sheet · Sheet 9 of 10</div>
+</section>
+
+<section class="sheet">
+  <div class="sheet-head"><span class="tag">CS212 · Strategy</span><span class="pg">Sheet 10 / 10</span></div>
+  
+<section class="topic">
+<h2>🧰 Method Checklists &amp; Exam-Day Strategy</h2>
+<div class="two-col">
+<div class="worked"><h4>Trace an array stack</h4><ul class="facts">
+<li>PUSH: check <code>top ≠ n</code> → <code>top++</code> → store.</li>
+<li>POP: check <code>top ≠ 0</code> → read <code>STACK[top]</code> → <code>top--</code>.</li>
+<li>TOP: return <code>STACK[top]</code>, no change.</li>
+<li>Track <i>top</i>, the contents, and the returned value at every step.</li></ul></div>
+
+<div class="worked"><h4>Trace a circular queue Q(0:n-1)</h4><ul class="facts">
+<li>ADDQ: <code>rear=(rear+1) mod n</code> → store at <code>Q[rear]</code>.</li>
+<li>DELETEQ: <code>front=(front+1) mod n</code> → read <code>Q[front]</code>.</li>
+<li>Empty <code>front==rear</code>; full <code>front==(rear+1) mod n</code>.</li>
+<li>Watch the wrap from index <code>n-1</code> back to <code>0</code>.</li></ul></div>
+
+<div class="worked"><h4>Build / read a BST</h4><ul class="facts">
+<li>Insert: smaller → go left, larger → go right, to an empty slot.</li>
+<li>Depth(root)=0; Height(leaf)=0; tree height = root height.</li>
+<li>Inorder = ascending; Preorder = copy; Postorder = safe delete.</li>
+<li>Balanced search ≈ <code>log₂n</code> steps; skewed = <code>n</code>.</li></ul></div>
+
+<div class="worked"><h4>Run the two sorts</h4><ul class="facts">
+<li>Insertion: take key, shift larger elements right, drop key in. Per pass, A[0..j] becomes sorted.</li>
+<li>Merge: split to single elements, then merge adjacent sorted runs in order.</li>
+<li>Insertion best <code>O(n)</code>/worst <code>O(n²)</code>; Merge <code>Θ(n log n)</code> always, <code>O(n)</code> extra space.</li></ul></div>
+</div>
+
+<h3>🗂 Traversal quick-reference</h3>
+<table class="ct"><thead><tr><th>Traversal</th><th>Order</th><th>Use</th></tr></thead><tbody>
+<tr><td>Preorder</td><td>Root → L → R</td><td>Copy / serialize a tree</td></tr>
+<tr><td>Inorder</td><td>L → Root → R</td><td>Ascending sorted output of a BST</td></tr>
+<tr><td>Postorder</td><td>L → R → Root</td><td>Safely delete / free all nodes</td></tr>
+</tbody></table>
+
+<div class="trap"><b>⚠ On the day:</b>
+<ul style="margin:2px 0">
+<li>For "choose the correct statement(s)" questions, check <i>every</i> clause — reject an option if any part is false.</li>
+<li>One wrong word flips a True/False (in-place, O(1), stable, NULL, FIFO/LIFO) — read carefully.</li>
+<li>Show your trace tables step-by-step; partial credit lives in the working, not just the final answer.</li>
+<li>State complexity with the right symbol: <code>O</code> (worst), <code>Ω</code> (best), <code>Θ</code> (only when they match).</li>
+</ul></div>
+</section>
+
+  <div class="sheet-foot">CS212 Data Structures — Student Revision Sheet · Sheet 10 of 10</div>
+</section>
+
+</body>
+</html>
