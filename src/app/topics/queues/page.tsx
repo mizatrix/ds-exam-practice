@@ -1,7 +1,10 @@
 "use client";
+import dynamic from "next/dynamic";
 import Quiz from "@/components/quiz/Quiz";
 import { queuesQuestions } from "@/data/questions/queues";
 import Link from "next/link";
+
+const QueueViz = dynamic(() => import("@/components/visualizer/QueueViz"), { ssr: false });
 
 const concepts = [
   { title: "📥 Queue ADT (FIFO)", desc: "First-In, First-Out. Insert (ADDQ / enqueue) happens at the rear; remove (DELETEQ / dequeue) happens at the front. The everyday model is a print spooler — the first job sent is the first printed." },
@@ -31,6 +34,12 @@ export default function QueuesPage() {
       </div>
 
       <section className="section" style={{ paddingTop: 0 }}>
+        <div style={{ marginBottom: "var(--space-12)" }}>
+          <p className="label" style={{ marginBottom: "var(--space-4)" }}>INTERACTIVE VISUALIZATION</p>
+          <h2 style={{ marginBottom: "var(--space-6)" }}>Circular Queue Visualizer</h2>
+          <QueueViz />
+        </div>
+
         <div style={{ marginBottom: "var(--space-12)" }}>
           <p className="label" style={{ marginBottom: "var(--space-4)" }}>REFERENCE</p>
           <h2 style={{ marginBottom: "var(--space-6)" }}>Linear vs Circular Queue</h2>

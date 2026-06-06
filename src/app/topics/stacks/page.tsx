@@ -1,7 +1,10 @@
 "use client";
+import dynamic from "next/dynamic";
 import Quiz from "@/components/quiz/Quiz";
 import { stacksQuestions } from "@/data/questions/stacks";
 import Link from "next/link";
+
+const StackViz = dynamic(() => import("@/components/visualizer/StackViz"), { ssr: false });
 
 const concepts = [
   { title: "🗄️ Stack ADT (LIFO)", desc: "A list where insertion and deletion happen only at one end — the top. Last-In, First-Out. push, pop, and top are all O(1). Implemented with an array or a linked list." },
@@ -31,6 +34,12 @@ export default function StacksPage() {
       </div>
 
       <section className="section" style={{ paddingTop: 0 }}>
+        <div style={{ marginBottom: "var(--space-12)" }}>
+          <p className="label" style={{ marginBottom: "var(--space-4)" }}>INTERACTIVE VISUALIZATION</p>
+          <h2 style={{ marginBottom: "var(--space-6)" }}>Stack Visualizer</h2>
+          <StackViz />
+        </div>
+
         <div style={{ marginBottom: "var(--space-12)" }}>
           <p className="label" style={{ marginBottom: "var(--space-4)" }}>REFERENCE</p>
           <h2 style={{ marginBottom: "var(--space-6)" }}>Core Stack Operations</h2>

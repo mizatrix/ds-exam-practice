@@ -5,11 +5,17 @@ import { useState } from "react";
 
 const InsertionSortViz = dynamic(() => import("@/components/visualizer/InsertionSortViz"), { ssr: false });
 const LinkedListViz = dynamic(() => import("@/components/visualizer/LinkedListViz"), { ssr: false });
+const StackViz = dynamic(() => import("@/components/visualizer/StackViz"), { ssr: false });
+const QueueViz = dynamic(() => import("@/components/visualizer/QueueViz"), { ssr: false });
+const BSTViz = dynamic(() => import("@/components/visualizer/BSTViz"), { ssr: false });
 
-type VizMode = "insertion-sort" | "sll" | "dll" | "cdll";
+type VizMode = "insertion-sort" | "sll" | "dll" | "cdll" | "stack" | "queue" | "bst";
 
 const vizOptions: { id: VizMode; label: string; icon: string; desc: string }[] = [
   { id: "insertion-sort", label: "Insertion Sort", icon: "🔄", desc: "Watch elements slide into position step by step" },
+  { id: "stack", label: "Stack", icon: "🗄️", desc: "Push, pop, and peek with overflow / underflow" },
+  { id: "queue", label: "Circular Queue", icon: "📥", desc: "ADDQ / DELETEQ around a ring with front & rear" },
+  { id: "bst", label: "Binary Search Tree", icon: "🌳", desc: "Insert, search, and animate the three traversals" },
   { id: "sll", label: "Singly Linked List", icon: "➡️", desc: "Insert and delete nodes with forward-only pointers" },
   { id: "dll", label: "Doubly Linked List", icon: "↔️", desc: "Bidirectional traversal with prev and next pointers" },
   { id: "cdll", label: "Circular DLL", icon: "🔁", desc: "Closed ring structure with no NULL pointers" },
@@ -61,6 +67,9 @@ export default function VisualizerPage() {
           </h2>
 
           {mode === "insertion-sort" && <InsertionSortViz initialArray={[7, 3, 9, 2, 6, 4, 8, 1]} />}
+          {mode === "stack" && <StackViz />}
+          {mode === "queue" && <QueueViz />}
+          {mode === "bst" && <BSTViz />}
           {(mode === "sll" || mode === "dll" || mode === "cdll") && <LinkedListViz key={mode} type={mode} />}
         </div>
 

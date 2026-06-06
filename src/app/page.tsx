@@ -114,7 +114,7 @@ export default function Home() {
           <div className="feature-card">
             <div className="feature-icon">📝</div>
             <h4>Practice Questions</h4>
-            <p>90+ exam-style questions across all six topics — True/False, MCQ, Fill-in-the-Blank, and Code Tracing. Instant feedback with explanations.</p>
+            <p>130+ exam-style questions across all six topics — True/False, MCQ, Fill-in-the-Blank, and Code Tracing. Instant feedback with explanations.</p>
           </div>
           <div className="feature-card">
             <div className="feature-icon">💻</div>

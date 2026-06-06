@@ -1,7 +1,10 @@
 "use client";
+import dynamic from "next/dynamic";
 import Quiz from "@/components/quiz/Quiz";
 import { treesQuestions } from "@/data/questions/trees";
 import Link from "next/link";
+
+const BSTViz = dynamic(() => import("@/components/visualizer/BSTViz"), { ssr: false });
 
 const concepts = [
   { title: "🌳 Tree Terminology", desc: "Root (top, no parent), parent/child, leaf (no children), edge (a link). DEPTH of a node = edges from the root down to it (root depth = 0). HEIGHT of a node = edges down to its furthest leaf (leaf height = 0). The tree's height is the root's height." },
@@ -30,6 +33,12 @@ export default function TreesPage() {
       </div>
 
       <section className="section" style={{ paddingTop: 0 }}>
+        <div style={{ marginBottom: "var(--space-12)" }}>
+          <p className="label" style={{ marginBottom: "var(--space-4)" }}>INTERACTIVE VISUALIZATION</p>
+          <h2 style={{ marginBottom: "var(--space-6)" }}>BST Visualizer</h2>
+          <BSTViz />
+        </div>
+
         <div style={{ marginBottom: "var(--space-12)" }}>
           <p className="label" style={{ marginBottom: "var(--space-4)" }}>REFERENCE</p>
           <h2 style={{ marginBottom: "var(--space-6)" }}>The Three Traversals</h2>
