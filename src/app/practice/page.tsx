@@ -3,6 +3,9 @@ import Quiz from "@/components/quiz/Quiz";
 import { sortingQuestions } from "@/data/questions/sorting";
 import { linkedListQuestions } from "@/data/questions/linked-lists";
 import { complexityQuestions } from "@/data/questions/complexity";
+import { stacksQuestions } from "@/data/questions/stacks";
+import { queuesQuestions } from "@/data/questions/queues";
+import { treesQuestions } from "@/data/questions/trees";
 import { Question } from "@/data/questions/sorting";
 import Link from "next/link";
 import { useState, useMemo } from "react";
@@ -20,16 +23,22 @@ export default function PracticePage() {
   const [started, setStarted] = useState(false);
   const [questionCount, setQuestionCount] = useState(20);
   const [selectedTopics, setSelectedTopics] = useState({
-    sorting: true,
-    linkedLists: true,
     complexity: true,
+    linkedLists: true,
+    stacks: true,
+    queues: true,
+    sorting: true,
+    trees: true,
   });
 
   const examQuestions = useMemo(() => {
     const pool: Question[] = [];
-    if (selectedTopics.sorting) pool.push(...sortingQuestions);
-    if (selectedTopics.linkedLists) pool.push(...linkedListQuestions);
     if (selectedTopics.complexity) pool.push(...complexityQuestions);
+    if (selectedTopics.linkedLists) pool.push(...linkedListQuestions);
+    if (selectedTopics.stacks) pool.push(...stacksQuestions);
+    if (selectedTopics.queues) pool.push(...queuesQuestions);
+    if (selectedTopics.sorting) pool.push(...sortingQuestions);
+    if (selectedTopics.trees) pool.push(...treesQuestions);
     return shuffleArray(pool).slice(0, questionCount);
   }, [selectedTopics, questionCount]);
 
@@ -54,9 +63,12 @@ export default function PracticePage() {
               <p className="label" style={{ marginBottom: "var(--space-3)" }}>TOPICS</p>
               <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-3)" }}>
                 {[
-                  { key: "sorting", label: "📊 Sorting Algorithms", count: sortingQuestions.length },
-                  { key: "linkedLists", label: "🔗 Linked Lists", count: linkedListQuestions.length },
                   { key: "complexity", label: "📈 Complexity Analysis", count: complexityQuestions.length },
+                  { key: "linkedLists", label: "🔗 Linked Lists", count: linkedListQuestions.length },
+                  { key: "stacks", label: "🗄️ Stacks", count: stacksQuestions.length },
+                  { key: "queues", label: "📥 Queues", count: queuesQuestions.length },
+                  { key: "sorting", label: "📊 Sorting Algorithms", count: sortingQuestions.length },
+                  { key: "trees", label: "🌳 Trees & BST", count: treesQuestions.length },
                 ].map(({ key, label, count }) => (
                   <label key={key} style={{ display: "flex", alignItems: "center", gap: "var(--space-3)", cursor: "pointer", padding: "var(--space-2) 0" }}>
                     <input
@@ -78,7 +90,7 @@ export default function PracticePage() {
                 <input
                   type="range"
                   min={5}
-                  max={Math.min(50, (selectedTopics.sorting ? sortingQuestions.length : 0) + (selectedTopics.linkedLists ? linkedListQuestions.length : 0) + (selectedTopics.complexity ? complexityQuestions.length : 0))}
+                  max={Math.max(5, Math.min(60, (selectedTopics.complexity ? complexityQuestions.length : 0) + (selectedTopics.linkedLists ? linkedListQuestions.length : 0) + (selectedTopics.stacks ? stacksQuestions.length : 0) + (selectedTopics.queues ? queuesQuestions.length : 0) + (selectedTopics.sorting ? sortingQuestions.length : 0) + (selectedTopics.trees ? treesQuestions.length : 0)))}
                   value={questionCount}
                   onChange={(e) => setQuestionCount(Number(e.target.value))}
                   style={{ flex: 1, accentColor: "var(--primary-container)" }}

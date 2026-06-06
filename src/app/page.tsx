@@ -11,12 +11,13 @@ export default function Home() {
           <br />Ace Your Exam
         </h1>
         <p className="hero-subtitle">
-          Interactive practice for sorting algorithms, linked lists, and complexity analysis.
+          Interactive practice across complexity, linked lists, stacks, queues, sorting, and trees.
           Visualize algorithms, solve practice questions, and prepare for exams — all in one place.
         </p>
         <div className="hero-actions">
           <Link href="/practice" className="btn btn-primary">📝 Start Practice Exam</Link>
           <Link href="/visualizer" className="btn btn-outline">🎬 Open Visualizer</Link>
+          <a href="/DS-Revision-Sheet.pdf" target="_blank" rel="noopener noreferrer" className="btn btn-outline">📄 Revision Sheet (PDF)</a>
         </div>
       </section>
 
@@ -63,6 +64,42 @@ export default function Home() {
             </div>
             <span className="explore-link">Explore →</span>
           </Link>
+
+          <Link href="/topics/stacks" className="topic-card accent-indigo">
+            <div className="topic-icon indigo">🗄️</div>
+            <h3>Stacks</h3>
+            <p>LIFO operations, overflow/underflow, multi-stack arrays, and infix-to-postfix conversion.</p>
+            <div className="topic-tags">
+              <span className="badge badge-primary">Push / Pop</span>
+              <span className="badge badge-primary">Multi-Stack</span>
+              <span className="badge">Infix→Postfix</span>
+            </div>
+            <span className="explore-link">Explore →</span>
+          </Link>
+
+          <Link href="/topics/queues" className="topic-card accent-emerald">
+            <div className="topic-icon emerald">📥</div>
+            <h3>Queues</h3>
+            <p>FIFO queues, the linear drift problem, and circular queues with their full/empty conditions.</p>
+            <div className="topic-tags">
+              <span className="badge badge-success">FIFO</span>
+              <span className="badge badge-success">Circular</span>
+              <span className="badge">ADDQ / DELETEQ</span>
+            </div>
+            <span className="explore-link">Explore →</span>
+          </Link>
+
+          <Link href="/topics/trees" className="topic-card accent-amber">
+            <div className="topic-icon amber">🌳</div>
+            <h3>Trees &amp; BST</h3>
+            <p>Tree terminology, BST insertion and search, depth vs height, and the three traversals.</p>
+            <div className="topic-tags">
+              <span className="badge badge-warning">BST</span>
+              <span className="badge badge-warning">Traversals</span>
+              <span className="badge">Depth / Height</span>
+            </div>
+            <span className="explore-link">Explore →</span>
+          </Link>
         </div>
       </section>
 
@@ -77,7 +114,7 @@ export default function Home() {
           <div className="feature-card">
             <div className="feature-icon">📝</div>
             <h4>Practice Questions</h4>
-            <p>50+ exam-style questions with True/False, MCQ, Fill-in-the-Blank, and Code Tracing. Instant feedback with explanations.</p>
+            <p>90+ exam-style questions across all six topics — True/False, MCQ, Fill-in-the-Blank, and Code Tracing. Instant feedback with explanations.</p>
           </div>
           <div className="feature-card">
             <div className="feature-icon">💻</div>

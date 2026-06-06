@@ -8,9 +8,12 @@ export default function Navbar() {
   const pathname = usePathname();
 
   const links = [
-    { href: "/topics/sorting", label: "Sorting", icon: "📊" },
-    { href: "/topics/linked-lists", label: "Linked Lists", icon: "🔗" },
     { href: "/topics/complexity", label: "Complexity", icon: "📈" },
+    { href: "/topics/linked-lists", label: "Linked Lists", icon: "🔗" },
+    { href: "/topics/stacks", label: "Stacks", icon: "🗄️" },
+    { href: "/topics/queues", label: "Queues", icon: "📥" },
+    { href: "/topics/sorting", label: "Sorting", icon: "📊" },
+    { href: "/topics/trees", label: "Trees & BST", icon: "🌳" },
     { href: "/visualizer", label: "Visualizer", icon: "🎬" },
     { href: "/practice", label: "Practice Exam", icon: "📝" },
   ];
